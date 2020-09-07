@@ -102,8 +102,9 @@ class MyGame(arcade.Window):
         """ Movement and game logic """
 
         for npc in self.npcs:
-            npc.center_x += 1 if npc.center_x < self.player_sprite.center_x else -1
-            npc.center_y += 1 if npc.center_y < self.player_sprite.center_y else -1
+            npc.change_x = 1 if npc.center_x < self.player_sprite.center_x else -1
+            npc.change_y = 1 if npc.center_y < self.player_sprite.center_y else -1
+        self.npcs.update()
 
         # Call update on all sprites (The sprites don't do much in this
         # example though.)
