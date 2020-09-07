@@ -2,6 +2,7 @@
 Platformer Game
 """
 import arcade
+import random
 
 # Constants
 SCREEN_WIDTH = 1280
@@ -39,15 +40,23 @@ class MyGame(arcade.Window):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
         # Separate variable that holds the player sprite
         self.player_sprite = None
+        self.npcs = arcade.SpriteList()
         self.wall_list = arcade.SpriteList()
 
         # Keep track of the score
         self.score = 0
 
         # Set up the player, specifically placing it at these coordinates.
-        self.player_sprite = arcade.Sprite("images/npcs/dragonRed/dragonRed.png", CHARACTER_SCALING)
+        self.player_sprite = arcade.Sprite("images/npcs/dragonBlack256.png", CHARACTER_SCALING)
         self.player_sprite.center_x = PLAYER_START_X
         self.player_sprite.center_y = PLAYER_START_Y
+
+        for i in range(5):
+            img_path = "images/npcs/dragonBlack256.png" if i % 5 != 0 else "images/npcs/dragonRed.png"
+            npc = arcade.Sprite(img_path, CHARACTER_SCALING)
+            npc.center_x = random.randint(0, SCREEN_WIDTH)
+            npc.center_y = random.randint(0, SCREEN_HEIGHT)
+            self.npcs.append(npc)
 
         # Graphical stuff
         arcade.set_background_color(arcade.color.AMAZON)
@@ -61,6 +70,7 @@ class MyGame(arcade.Window):
         # Clear the screen to the background color
         arcade.start_render()
 
+        self.npcs.draw()
         self.player_sprite.draw()
 
         # Draw our score on the screen, scrolling it with the viewport
