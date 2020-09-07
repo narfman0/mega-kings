@@ -47,7 +47,7 @@ class MyGame(arcade.Window):
         self.score = 0
 
         # Set up the player, specifically placing it at these coordinates.
-        self.player_sprite = arcade.Sprite("images/npcs/dragonBlack256.png", CHARACTER_SCALING)
+        self.player_sprite = arcade.Sprite("images/npcs/dragonGreen256.png", CHARACTER_SCALING)
         self.player_sprite.center_x = PLAYER_START_X
         self.player_sprite.center_y = PLAYER_START_Y
 
@@ -102,13 +102,17 @@ class MyGame(arcade.Window):
         """ Movement and game logic """
 
         for npc in self.npcs:
-            npc.change_x = 1 if npc.center_x < self.player_sprite.center_x else -1
-            npc.change_y = 1 if npc.center_y < self.player_sprite.center_y else -1
+            npc.change_x += 1 if npc.center_x < self.player_sprite.center_x else -1
+            npc.change_y += 1 if npc.center_y < self.player_sprite.center_y else -1
         self.npcs.update()
 
         # Call update on all sprites (The sprites don't do much in this
         # example though.)
         self.physics_engine.update()
+
+
+def distance(sprite1, sprite2):
+    return math.sqrt((sprite1.center_x - sprite2.center_x)**2 + (sprite1.center_y - sprite2.center_y)**2)
 
 
 def main():
