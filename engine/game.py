@@ -38,8 +38,12 @@ class MyGame(arcade.Window):
     Main application class.
     """
 
-    def __init__(self, screen_title, player_sprite):
+    def __init__(self, screen_title):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, screen_title)
+        # Graphical stuff
+        arcade.set_background_color(arcade.color.AMAZON)
+
+    def setup(self, player_sprite):
         # Separate variable that holds the player sprite
         self.npcs = arcade.SpriteList()
         self.terrain = arcade.SpriteList()
@@ -48,9 +52,6 @@ class MyGame(arcade.Window):
         self.player_sprite = player_sprite
         self.player_sprite.center_x = PLAYER_START_X
         self.player_sprite.center_y = PLAYER_START_Y
-
-        # Graphical stuff
-        arcade.set_background_color(arcade.color.AMAZON)
 
         # Physics
         self.moving_left = False
@@ -85,6 +86,8 @@ class MyGame(arcade.Window):
                 self.moving_right = True
             if key == arcade.key.DOWN:
                 self.moving_down = True
+        if key == arcade.key.R:
+            self.setup()
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
