@@ -39,7 +39,6 @@ class MyGame(arcade.Window):
     def __init__(self, screen_title, player_sprite_path):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, screen_title)
         # Separate variable that holds the player sprite
-        self.player_sprite = None
         self.npcs = arcade.SpriteList()
         self.terrain = arcade.SpriteList()
 
