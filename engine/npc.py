@@ -3,7 +3,7 @@ import arcade
 import random
 
 class NPC(arcade.Sprite):
-    def __init__(self, player_sprite_path, scaling_factor, hp=1, attack=10, defense=10):
+    def __init__(self, player_sprite_path, scaling_factor, hp=1, attack=1, defense=0):
         super().__init__(player_sprite_path, scaling_factor)
         self.hp = hp
         self.current_hp = hp

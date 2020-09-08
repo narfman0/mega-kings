@@ -16,7 +16,7 @@ class MegaKingsGame(MyGame):
         super().__init__(SCREEN_TITLE, NPC("images/npcs/dragonGreen256.png", CHARACTER_SCALING, hp=100))
         for i in range(NPC_COUNT):
             img_path = "images/npcs/dragonBlack256.png" if i % NPC_COUNT != 0 else "images/npcs/dragonRed.png"
-            npc = NPC(img_path, CHARACTER_SCALING)
+            npc = NPC(img_path, CHARACTER_SCALING, hp=2)
             npc.center_x = random.randint(0, SCREEN_WIDTH)
             npc.center_y = random.randint(0, SCREEN_HEIGHT)
             self.npcs.append(npc)
@@ -29,7 +29,6 @@ class MegaKingsGame(MyGame):
             for npc in self.npcs:
                 if distance(npc, self.player_sprite) < ATTACK_DISTANCE:
                     npc.current_hp -= 1
-
         fainted = []
         for npc in self.npcs:
             if npc.fainted():

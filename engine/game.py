@@ -67,7 +67,8 @@ class MyGame(arcade.Window):
 
         self.npcs.draw()
         self.terrain.draw()
-        self.player_sprite.draw()
+        if not self.player_sprite.fainted():
+            self.player_sprite.draw()
 
         # Draw our score on the screen, scrolling it with the viewport
         score_text = f"x: {self.player_sprite.center_x} y: {self.player_sprite.center_y} hp: {self.player_sprite.current_hp}"
@@ -75,14 +76,15 @@ class MyGame(arcade.Window):
 
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
-        if key == arcade.key.UP:
-            self.moving_up = True
-        if key == arcade.key.LEFT:
-            self.moving_left = True
-        if key == arcade.key.RIGHT:
-            self.moving_right = True
-        if key == arcade.key.DOWN:
-            self.moving_down = True
+        if not self.player_sprite.fainted():
+            if key == arcade.key.UP:
+                self.moving_up = True
+            if key == arcade.key.LEFT:
+                self.moving_left = True
+            if key == arcade.key.RIGHT:
+                self.moving_right = True
+            if key == arcade.key.DOWN:
+                self.moving_down = True
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
