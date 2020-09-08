@@ -9,7 +9,7 @@ from engine.game import *
 from engine.math import distance
 
 SCREEN_TITLE = "Unicorns and Rainbows"
-NPC_COUNT = 1
+NPC_COUNT = 5
 PLANT_COUNT = NPC_COUNT + 1
 
 

@@ -51,6 +51,10 @@ class MyGame(arcade.Window):
         arcade.set_background_color(arcade.color.AMAZON)
 
         # Physics
+        self.moving_left = False
+        self.moving_right = False
+        self.moving_up = False
+        self.moving_down = False
         self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.terrain)
 
     def on_draw(self):
@@ -70,22 +74,38 @@ class MyGame(arcade.Window):
     def on_key_press(self, key, modifiers):
         """Called whenever a key is pressed. """
         if key == arcade.key.UP:
-            self.player_sprite.change_y = MOVEMENT_SPEED
-        elif key == arcade.key.DOWN:
-            self.player_sprite.change_y = -MOVEMENT_SPEED
-        elif key == arcade.key.LEFT:
-            self.player_sprite.change_x = -MOVEMENT_SPEED
-        elif key == arcade.key.RIGHT:
-            self.player_sprite.change_x = MOVEMENT_SPEED
+            self.moving_up = True
+        if key == arcade.key.LEFT:
+            self.moving_left = True
+        if key == arcade.key.RIGHT:
+            self.moving_right = True
+        if key == arcade.key.DOWN:
+            self.moving_down = True
 
     def on_key_release(self, key, modifiers):
         """Called when the user releases a key. """
-        if key == arcade.key.UP or key == arcade.key.DOWN:
-            self.player_sprite.change_y = 0
-        elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
-            self.player_sprite.change_x = 0
+        if key == arcade.key.UP:
+            self.moving_up = False
+        if key == arcade.key.LEFT:
+            self.moving_left = False
+        if key == arcade.key.RIGHT:
+            self.moving_right = False
+        if key == arcade.key.DOWN:
+            self.moving_down = False
 
     def on_update(self, delta_time):
         """ Movement and game logic """
+        if self.moving_up:
+            self.player_sprite.change_y = MOVEMENT_SPEED
+        elif self.moving_down:
+            self.player_sprite.change_y = -MOVEMENT_SPEED
+        else:
+            self.player_sprite.change_y = 0
+        if self.moving_left:
+            self.player_sprite.change_x = -MOVEMENT_SPEED
+        elif self.moving_right:
+            self.player_sprite.change_x = MOVEMENT_SPEED
+        else:
+            self.player_sprite.change_x = 0
         self.npcs.update()
         self.physics_engine.update()
