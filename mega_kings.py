@@ -1,6 +1,3 @@
-"""
-Platformer Game
-"""
 import random
 
 import arcade
