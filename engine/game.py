@@ -5,6 +5,8 @@ import random
 
 import arcade
 
+from engine.npc import NPC
+
 # Constants
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 1024
@@ -36,14 +38,14 @@ class MyGame(arcade.Window):
     Main application class.
     """
 
-    def __init__(self, screen_title, player_sprite_path):
+    def __init__(self, screen_title, player_sprite):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, screen_title)
         # Separate variable that holds the player sprite
         self.npcs = arcade.SpriteList()
         self.terrain = arcade.SpriteList()
 
         # Set up the player, specifically placing it at these coordinates.
-        self.player_sprite = arcade.Sprite(player_sprite_path, CHARACTER_SCALING)
+        self.player_sprite = player_sprite
         self.player_sprite.center_x = PLAYER_START_X
         self.player_sprite.center_y = PLAYER_START_Y
 
@@ -68,7 +70,7 @@ class MyGame(arcade.Window):
         self.player_sprite.draw()
 
         # Draw our score on the screen, scrolling it with the viewport
-        score_text = f"x: {self.player_sprite.center_x} y: {self.player_sprite.center_y}"
+        score_text = f"x: {self.player_sprite.center_x} y: {self.player_sprite.center_y} hp: {self.player_sprite.current_hp}"
         arcade.draw_text(score_text, 10, 10, arcade.csscolor.WHITE, 18)
 
     def on_key_press(self, key, modifiers):

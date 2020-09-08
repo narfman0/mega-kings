@@ -12,7 +12,7 @@ PLANT_COUNT = NPC_COUNT + 1
 
 class UnicornsAndRainbowsGame(MyGame):
     def __init__(self):
-        super().__init__(SCREEN_TITLE, "images/npcs/pinkUnicornFlying256.png")
+        super().__init__(SCREEN_TITLE, NPC("images/npcs/pinkUnicornFlying256.png", CHARACTER_SCALING))
         for i in range(NPC_COUNT):
             unicorn_sprite = arcade.Sprite("images/npcs/pinkUnicorn256.png", CHARACTER_SCALING)
             unicorn_sprite.center_x = random.randint(0, SCREEN_WIDTH)
