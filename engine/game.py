@@ -114,5 +114,7 @@ class MyGame(arcade.Window):
             self.player.change_x = MOVEMENT_SPEED
         else:
             self.player.change_x = 0
+        self.player.update_animation()
         self.npcs.update()
+        self.npcs.update_animation()
         self.physics_engine.update()

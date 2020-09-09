@@ -15,9 +15,9 @@ class UnicornsAndRainbowsGame(MyGame):
         super().__init__(SCREEN_TITLE)
 
     def setup(self):
-        super().setup(NPC("images/npcs/pinkUnicornFlying256.png", CHARACTER_SCALING))
+        super().setup(NPC("pinkUnicornFlying"))
         for i in range(NPC_COUNT):
-            unicorn_sprite = arcade.Sprite("images/npcs/pinkUnicorn256.png", CHARACTER_SCALING)
+            unicorn_sprite = NPC("pinkUnicorn")
             unicorn_sprite.center_x = random.randint(0, SCREEN_WIDTH)
             unicorn_sprite.center_y = random.randint(0, SCREEN_HEIGHT)
             self.npcs.append(unicorn_sprite)
@@ -36,6 +36,8 @@ class UnicornsAndRainbowsGame(MyGame):
     def on_update(self, delta_time):
         """ Movement and game logic """
         super().on_update(delta_time)
+        self.player.update_animation()
+        self.npcs.update_animation()
         self.npcs_walk_to_player()
 
     def npcs_walk_to_player(self):
