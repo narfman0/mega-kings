@@ -27,11 +27,11 @@ class MegaKingsGame(MyGame):
     def on_update(self, delta_time):
         """ Movement and game logic """
         super().on_update(delta_time)
-        if self.player_sprite.attacking:
-            self.player_sprite.attacking = False
+        if self.player.attacking:
+            self.player.attacking = False
             for npc in self.npcs:
-                if distance(npc, self.player_sprite) < ATTACK_DISTANCE:
-                    npc.current_hp -= 1
+                if distance(npc, self.player) < ATTACK_DISTANCE:
+                    self.player.attack(npc)
         fainted = []
         for npc in self.npcs:
             if npc.fainted():
@@ -39,17 +39,18 @@ class MegaKingsGame(MyGame):
                 npc.change_x = 0
                 fainted.append(npc)
                 continue
-            npc.change_x = 1 if npc.center_x < self.player_sprite.center_x else -1
-            npc.change_y = 1 if npc.center_y < self.player_sprite.center_y else -1
-            if distance(npc, self.player_sprite) < ATTACK_DISTANCE:
-                self.player_sprite.current_hp -= 1
+            npc.change_x = 1 if npc.center_x < self.player.center_x else -1
+            npc.change_y = 1 if npc.center_y < self.player.center_y else -1
+            if distance(npc, self.player) < ATTACK_DISTANCE:
+                npc.attack(self.player)
         for fainted_npc in fainted:
             self.npcs.remove(fainted_npc)
 
     def on_key_press(self, key, modifiers):
         super().on_key_press(key, modifiers)
-        if key == arcade.key.A:
-            self.player_sprite.attacking = True
+        if not self.player.fainted():
+            if key == arcade.key.A:
+                self.player.attacking = True
 
 
 def main():

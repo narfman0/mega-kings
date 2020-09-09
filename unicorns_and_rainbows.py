@@ -40,8 +40,8 @@ class UnicornsAndRainbowsGame(MyGame):
 
     def npcs_walk_to_player(self):
         for npc in self.npcs:
-            npc.change_y = 1 if npc.center_y < self.player_sprite.center_y else -1
-            npc.change_x = 1 if npc.center_x < self.player_sprite.center_x else -1
+            npc.change_y = 1 if npc.center_y < self.player.center_y else -1
+            npc.change_x = 1 if npc.center_x < self.player.center_x else -1
 
     def npcs_walk_to_closest_plant(self):
         for npc in self.npcs:
