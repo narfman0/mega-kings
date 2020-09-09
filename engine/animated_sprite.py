@@ -28,8 +28,7 @@ def load_texture_pair(filename):
     """
     return [
         arcade.load_texture(filename),
-        arcade.load_texture(filename),
-        # TODO(narfman0): flipped_horizontally=True
+        arcade.load_texture(filename, flipped_horizontally=True),
     ]
 
 
@@ -38,8 +37,6 @@ class AnimatedSprite(arcade.Sprite):
         """ sprite_name folder containing sprite, e.g. kingkrool
         animation_name_frames_tuples tuple of animation_name,number of frames, e.g. [("idle", 4)]
         """
-
-        # Set up parent class
         super().__init__()
 
         # Default to face-right
@@ -64,6 +61,7 @@ class AnimatedSprite(arcade.Sprite):
             animation_textures = self.animation_name_texture_pairs[animation_name]
             for i in range(frames):
                 animation_textures.append(load_texture_pair(f"images/npcs/{sprite_name}/{animation_name}{i}.png"))
+        self.texture = self.animation_name_texture_pairs[self.current_animation_name][0][self.character_face_direction]
 
     def update_animation(self, delta_time: float = 1/60):
         # Figure out if we need to flip face left or right
