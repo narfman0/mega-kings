@@ -38,8 +38,12 @@ class MegaKingsGame(MyGame):
                 npc.change_x = 0
                 fainted.append(npc)
                 continue
-            npc.change_x = 1 if npc.center_x < self.player.center_x else -1
-            npc.change_y = 1 if npc.center_y < self.player.center_y else -1
+            if self.player.fainted():
+                npc.change_x += 1 if npc.center_x < self.player.center_x else -1
+                npc.change_y += 1 if npc.center_y < self.player.center_y else -1
+            else:
+                npc.change_x = 1 if npc.center_x < self.player.center_x else -1
+                npc.change_y = 1 if npc.center_y < self.player.center_y else -1
             if distance(npc, self.player) < ATTACK_DISTANCE:
                 npc.attack(self.player)
         for fainted_npc in fainted:
