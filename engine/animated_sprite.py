@@ -44,10 +44,6 @@ class AnimatedSprite(arcade.Sprite):
         self.current_animation_name = "idle"
         self.current_frame = 0
 
-        # Adjust the collision box. Default includes too much empty space
-        # side-to-side. Box is centered at sprite center, (0, 0)
-        self.points = [[-22, -64], [22, -64], [22, 28], [-22, 28]]
-
         # Load textures
         self.animation_name_texture_pairs = {}
         for animation_name, frames in animation_name_frames_tuples:

@@ -15,7 +15,7 @@ class UnicornsAndRainbowsGame(MyGame):
         super().__init__(SCREEN_TITLE)
 
     def setup(self):
-        super().setup(NPC("pinkUnicornFlying"))
+        super().setup(NPC("pinkie"))
         for i in range(NPC_COUNT):
             unicorn_sprite = NPC("pinkUnicorn")
             unicorn_sprite.center_x = random.randint(0, SCREEN_WIDTH)
@@ -23,7 +23,7 @@ class UnicornsAndRainbowsGame(MyGame):
             self.npcs.append(unicorn_sprite)
         self.plants = arcade.SpriteList()
         for i in range(PLANT_COUNT):
-            sprite = arcade.Sprite("images/terrain/redFlower.png", CHARACTER_SCALING)
+            sprite = arcade.Sprite("images/terrain/redFlower.png", 1)
             sprite.center_x = random.randint(0, SCREEN_WIDTH)
             sprite.center_y = random.randint(0, SCREEN_HEIGHT)
             self.plants.append(sprite)

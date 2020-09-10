@@ -5,7 +5,8 @@ import random
 from engine.animated_sprite import AnimatedSprite
 
 ANIMATION_TUPLES = {
-    "kingkrool": [("idle", 4), ("walk", 8)]
+    "kingkrool": [("idle", 4), ("walk", 8)],
+    "pinkie": [("idle", 2)],
 }
 ANIMATION_DEFAULT = [("idle", 1)]
 
