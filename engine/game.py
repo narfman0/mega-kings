@@ -19,10 +19,9 @@ PLAYER_JUMP_SPEED = 25
 PLAYER_START_X = SCREEN_WIDTH / 2
 PLAYER_START_Y = SCREEN_HEIGHT / 2
 
+
 class MyGame(arcade.Window):
-    """
-    Main application class.
-    """
+    """ Main application class. """
 
     def __init__(self, screen_title):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, screen_title)

@@ -10,9 +10,12 @@ ANIMATION_TUPLES = {
 }
 ANIMATION_DEFAULT = [("idle", 1)]
 
+
 class NPC(AnimatedSprite):
     def __init__(self, sprite_name, hp=1, attack_stat=1, defense_stat=0):
-        super().__init__(sprite_name, ANIMATION_TUPLES.get(sprite_name, ANIMATION_DEFAULT))
+        super().__init__(
+            sprite_name, ANIMATION_TUPLES.get(sprite_name, ANIMATION_DEFAULT)
+        )
         self.hp = hp
         self.current_hp = hp
         self.defense_stat = defense_stat
@@ -20,14 +23,24 @@ class NPC(AnimatedSprite):
         self.attacking = False
 
     def attack(self, opponent):
-        opponent.current_hp = max(0, opponent.current_hp - (self.attack_stat - opponent.defense_stat))
-    
+        opponent.current_hp = max(
+            0, opponent.current_hp - (self.attack_stat - opponent.defense_stat)
+        )
+
     def fainted(self):
         return self.current_hp <= 0
 
     def update(self):
         super().update()
-        if self.has_animation("walk") and (self.change_x != 0 or self.change_y != 0) and self.current_animation_name != "walk":
+        if (
+            self.has_animation("walk")
+            and (self.change_x != 0 or self.change_y != 0)
+            and self.current_animation_name != "walk"
+        ):
             self.set_animation("walk")
-        elif self.change_x == 0 and self.change_y == 0 and self.current_animation_name != "idle":
+        elif (
+            self.change_x == 0
+            and self.change_y == 0
+            and self.current_animation_name != "idle"
+        ):
             self.set_animation("idle")

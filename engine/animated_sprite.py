@@ -1,16 +1,4 @@
-"""
-Move with a Sprite Animation
-
-Simple program to show basic sprite usage.
-
-Artwork from http://kenney.nl
-
-If Python and Arcade are installed, this example can be run from the command line with:
-python -m arcade.examples.sprite_move_animation
-"""
 import arcade
-import random
-import os
 
 UPDATES_PER_FRAME = 7
 
@@ -20,9 +8,7 @@ LEFT_FACING = 1
 
 
 def load_texture_pair(filename):
-    """
-    Load a texture pair, with the second being a mirror image.
-    """
+    """ Load a texture pair, with the second being a mirror image. """
     return [
         arcade.load_texture(filename),
         arcade.load_texture(filename, flipped_horizontally=True),
@@ -50,8 +36,14 @@ class AnimatedSprite(arcade.Sprite):
             self.animation_name_texture_pairs[animation_name] = []
             animation_textures = self.animation_name_texture_pairs[animation_name]
             for i in range(frames):
-                animation_textures.append(load_texture_pair(f"images/npcs/{sprite_name}/{animation_name}{i}.png"))
-        self.texture = self.animation_name_texture_pairs[self.current_animation_name][0][self.character_face_direction]
+                animation_textures.append(
+                    load_texture_pair(
+                        f"images/npcs/{sprite_name}/{animation_name}{i}.png"
+                    )
+                )
+        self.texture = self.animation_name_texture_pairs[self.current_animation_name][
+            0
+        ][self.character_face_direction]
 
     def update(self):
         super().update()
@@ -63,10 +55,14 @@ class AnimatedSprite(arcade.Sprite):
 
         # Animation
         self.current_frame += 1
-        current_animation = self.animation_name_texture_pairs[self.current_animation_name]
+        current_animation = self.animation_name_texture_pairs[
+            self.current_animation_name
+        ]
         if self.current_frame // UPDATES_PER_FRAME >= len(current_animation):
             self.current_frame = 0
-        self.texture = current_animation[self.current_frame // UPDATES_PER_FRAME][self.character_face_direction]
+        self.texture = current_animation[self.current_frame // UPDATES_PER_FRAME][
+            self.character_face_direction
+        ]
 
     def set_animation(self, animation_name):
         if not self.has_animation(animation_name):
