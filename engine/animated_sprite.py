@@ -16,7 +16,9 @@ def load_texture_pair(filename):
 
 
 class AnimatedSprite(arcade.Sprite):
-    def __init__(self, sprite_name, animation_name_frames_tuples=[("idle", 1)], scale=1):
+    def __init__(
+        self, sprite_name, animation_name_frames_tuples=[("idle", 1)], scale=1
+    ):
         """ sprite_name folder containing sprite, e.g. kingkrool
         animation_name_frames_tuples tuple of animation_name,number of frames, e.g. [("idle", 4)]
         """
@@ -65,6 +67,9 @@ class AnimatedSprite(arcade.Sprite):
 
     def get_current_animation(self):
         return self.animation_name_texture_pairs[self.current_animation_name]
+
+    def get_current_animation_total_frames(self):
+        return len(self.get_current_animation()) * UPDATES_PER_FRAME
 
     def set_animation(self, animation_name, loop=True):
         if not self.has_animation(animation_name):

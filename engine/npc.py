@@ -3,6 +3,7 @@ import arcade
 import random
 
 from engine.animated_sprite import AnimatedSprite
+from engine.math import distance
 
 ANIMATION_TUPLES = {
     "kingkrool": [("idle", 4), ("walk", 8), ("attack", 4)],
@@ -10,6 +11,7 @@ ANIMATION_TUPLES = {
     "unicornBlue": [("idle", 2), ("walk", 9)],
 }
 ANIMATION_DEFAULT = [("idle", 1)]
+ATTACK_DISTANCE = 100
 
 
 class NPC(AnimatedSprite):
@@ -22,18 +24,27 @@ class NPC(AnimatedSprite):
         self.defense_stat = defense_stat
         self.attack_stat = attack_stat
         self.attacking = False
+        self.non_looped_frames_remaining = 0
 
-    def attack(self, opponent):
-        opponent.current_hp = max(
-            0, opponent.current_hp - (self.attack_stat - opponent.defense_stat)
-        )
+    def attack(self, npcs):
         self.set_animation("attack", False)
+        self.non_looped_frames_remaining = self.get_current_animation_total_frames()
+        for npc in npcs:
+            if distance(npc, self) < ATTACK_DISTANCE:
+                npc.current_hp = max(
+                    0, npc.current_hp - (self.attack_stat - npc.defense_stat)
+                )
 
     def fainted(self):
         return self.current_hp <= 0
 
     def update(self):
         super().update()
+        if not self.loop:
+            self.non_looped_frames_remaining -= 1
+            if self.non_looped_frames_remaining <= 0:
+                self.non_looped_frames_remaining = 0
+                self.set_animation("idle")
         if (
             self.has_animation("walk")
             and (self.change_x != 0 or self.change_y != 0)

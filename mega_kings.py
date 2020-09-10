@@ -4,11 +4,10 @@ import arcade
 
 from engine.game import *
 from engine.math import distance
-from engine.npc import NPC
+from engine.npc import NPC, ATTACK_DISTANCE
 
 SCREEN_TITLE = "Mega Kings"
 NPC_COUNT = 5
-ATTACK_DISTANCE = 100
 
 
 class MegaKingsGame(MyGame):
@@ -28,9 +27,7 @@ class MegaKingsGame(MyGame):
         super().on_update(delta_time)
         if self.player.attacking:
             self.player.attacking = False
-            for npc in self.npcs:
-                if distance(npc, self.player) < ATTACK_DISTANCE:
-                    self.player.attack(npc)
+            self.player.attack(self.npcs)
 
         fainted = []
         for npc in self.npcs:
@@ -46,13 +43,13 @@ class MegaKingsGame(MyGame):
                 npc.change_x = 1 if npc.center_x < self.player.center_x else -1
                 npc.change_y = 1 if npc.center_y < self.player.center_y else -1
             if distance(npc, self.player) < ATTACK_DISTANCE:
-                npc.attack(self.player)
+                npc.attack([self.player])
         for fainted_npc in fainted:
             self.npcs.remove(fainted_npc)
 
     def on_key_press(self, key, modifiers):
         super().on_key_press(key, modifiers)
-        if not self.player.fainted():
+        if not self.player.fainted() and self.player.current_animation_name != "attack":
             if key == arcade.key.A:
                 self.player.attacking = True
 
