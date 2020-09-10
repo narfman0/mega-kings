@@ -29,6 +29,7 @@ class AnimatedSprite(arcade.Sprite):
         # Used for flipping between image sequences
         self.current_animation_name = "idle"
         self.current_frame = 0
+        self.loop = True
 
         # Load textures
         self.animation_name_texture_pairs = {}
@@ -41,9 +42,7 @@ class AnimatedSprite(arcade.Sprite):
                         f"images/npcs/{sprite_name}/{animation_name}{i}.png"
                     )
                 )
-        self.texture = self.animation_name_texture_pairs[self.current_animation_name][
-            0
-        ][self.character_face_direction]
+        self.texture = self.get_current_animation()[0][self.character_face_direction]
 
     def update(self):
         super().update()
@@ -55,16 +54,19 @@ class AnimatedSprite(arcade.Sprite):
 
         # Animation
         self.current_frame += 1
-        current_animation = self.animation_name_texture_pairs[
-            self.current_animation_name
-        ]
+        current_animation = self.get_current_animation()
         if self.current_frame // UPDATES_PER_FRAME >= len(current_animation):
             self.current_frame = 0
+            if not self.loop:
+                self.set_animation("idle")
         self.texture = current_animation[self.current_frame // UPDATES_PER_FRAME][
             self.character_face_direction
         ]
 
-    def set_animation(self, animation_name):
+    def get_current_animation(self):
+        return self.animation_name_texture_pairs[self.current_animation_name]
+
+    def set_animation(self, animation_name, loop=True):
         if not self.has_animation(animation_name):
             print(f"Animation {animation_name} not in sprite {self.sprite_name}")
             return
@@ -72,6 +74,7 @@ class AnimatedSprite(arcade.Sprite):
             print(f"Animation {animation_name} already active")
         self.current_animation_name = animation_name
         self.current_frame = 0
+        self.loop = loop
 
     def has_animation(self, animation_name):
         return animation_name in self.animation_name_texture_pairs

@@ -5,7 +5,7 @@ import random
 from engine.animated_sprite import AnimatedSprite
 
 ANIMATION_TUPLES = {
-    "kingkrool": [("idle", 4), ("walk", 8)],
+    "kingkrool": [("idle", 4), ("walk", 8), ("attack", 4)],
     "pinkie": [("idle", 2), ("walk", 9)],
     "unicornBlue": [("idle", 2), ("walk", 9)],
 }
@@ -27,6 +27,7 @@ class NPC(AnimatedSprite):
         opponent.current_hp = max(
             0, opponent.current_hp - (self.attack_stat - opponent.defense_stat)
         )
+        self.set_animation("attack", False)
 
     def fainted(self):
         return self.current_hp <= 0
@@ -36,12 +37,12 @@ class NPC(AnimatedSprite):
         if (
             self.has_animation("walk")
             and (self.change_x != 0 or self.change_y != 0)
-            and self.current_animation_name != "walk"
+            and self.current_animation_name == "idle"
         ):
             self.set_animation("walk")
         elif (
             self.change_x == 0
             and self.change_y == 0
-            and self.current_animation_name != "idle"
+            and self.current_animation_name == "walk"
         ):
             self.set_animation("idle")
