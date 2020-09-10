@@ -31,6 +31,7 @@ class MegaKingsGame(MyGame):
             for npc in self.npcs:
                 if distance(npc, self.player) < ATTACK_DISTANCE:
                     self.player.attack(npc)
+
         fainted = []
         for npc in self.npcs:
             if npc.fainted():

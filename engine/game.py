@@ -11,24 +11,10 @@ from engine.npc import NPC
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 1024
 
-# Constants used to scale our sprites from their original size
-CHARACTER_SCALING = 1
-TILE_SCALING = 0.5
-COIN_SCALING = 0.5
-SPRITE_PIXEL_SIZE = 128
-GRID_PIXEL_SIZE = (SPRITE_PIXEL_SIZE * TILE_SCALING)
-
 # Movement speed of player, in pixels per frame
-MOVEMENT_SPEED = 10
+MOVEMENT_SPEED = 2
 GRAVITY = 1
 PLAYER_JUMP_SPEED = 25
-
-# How many pixels to keep as a minimum margin between the character
-# and the edge of the screen.
-LEFT_VIEWPORT_MARGIN = SCREEN_WIDTH / 3
-RIGHT_VIEWPORT_MARGIN = SCREEN_WIDTH / 3
-BOTTOM_VIEWPORT_MARGIN = SCREEN_HEIGHT / 4
-TOP_VIEWPORT_MARGIN = SCREEN_HEIGHT / 4
 
 PLAYER_START_X = SCREEN_WIDTH / 2
 PLAYER_START_Y = SCREEN_HEIGHT / 2
@@ -114,7 +100,6 @@ class MyGame(arcade.Window):
             self.player.change_x = MOVEMENT_SPEED
         else:
             self.player.change_x = 0
-        self.player.update_animation()
+        self.player.update()
         self.npcs.update()
-        self.npcs.update_animation()
         self.physics_engine.update()

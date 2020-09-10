@@ -5,7 +5,7 @@ import random
 from engine.animated_sprite import AnimatedSprite
 
 ANIMATION_TUPLES = {
-    "kingkrool": [("idle", 4)]
+    "kingkrool": [("idle", 4), ("walk", 8)]
 }
 ANIMATION_DEFAULT = [("idle", 1)]
 
@@ -23,3 +23,10 @@ class NPC(AnimatedSprite):
     
     def fainted(self):
         return self.current_hp <= 0
+
+    def update(self):
+        super().update()
+        if self.has_animation("walk") and (self.change_x != 0 or self.change_y != 0) and self.current_animation_name != "walk":
+            self.set_animation("walk")
+        elif self.change_x == 0 and self.change_y == 0 and self.current_animation_name != "idle":
+            self.set_animation("idle")
