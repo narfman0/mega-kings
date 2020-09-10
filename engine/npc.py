@@ -7,14 +7,15 @@ from engine.animated_sprite import AnimatedSprite
 ANIMATION_TUPLES = {
     "kingkrool": [("idle", 4), ("walk", 8)],
     "pinkie": [("idle", 2), ("walk", 9)],
+    "unicornBlue": [("idle", 2), ("walk", 9)],
 }
 ANIMATION_DEFAULT = [("idle", 1)]
 
 
 class NPC(AnimatedSprite):
-    def __init__(self, sprite_name, hp=1, attack_stat=1, defense_stat=0):
+    def __init__(self, sprite_name, hp=1, attack_stat=1, defense_stat=0, scale=1):
         super().__init__(
-            sprite_name, ANIMATION_TUPLES.get(sprite_name, ANIMATION_DEFAULT)
+            sprite_name, ANIMATION_TUPLES.get(sprite_name, ANIMATION_DEFAULT), scale
         )
         self.hp = hp
         self.current_hp = hp

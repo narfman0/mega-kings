@@ -15,9 +15,9 @@ class UnicornsAndRainbowsGame(MyGame):
         super().__init__(SCREEN_TITLE)
 
     def setup(self):
-        super().setup(NPC("pinkie"))
+        super().setup(NPC("unicornBlue", scale=4))
         for i in range(NPC_COUNT):
-            unicorn_sprite = NPC("pinkUnicorn")
+            unicorn_sprite = NPC("pinkie")
             unicorn_sprite.center_x = random.randint(0, SCREEN_WIDTH)
             unicorn_sprite.center_y = random.randint(0, SCREEN_HEIGHT)
             self.npcs.append(unicorn_sprite)

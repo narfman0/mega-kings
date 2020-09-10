@@ -16,11 +16,11 @@ def load_texture_pair(filename):
 
 
 class AnimatedSprite(arcade.Sprite):
-    def __init__(self, sprite_name, animation_name_frames_tuples=[("idle", 1)]):
+    def __init__(self, sprite_name, animation_name_frames_tuples=[("idle", 1)], scale=1):
         """ sprite_name folder containing sprite, e.g. kingkrool
         animation_name_frames_tuples tuple of animation_name,number of frames, e.g. [("idle", 4)]
         """
-        super().__init__()
+        super().__init__(scale=scale)
         self.sprite_name = sprite_name
 
         # Default to face-right
