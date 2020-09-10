@@ -6,7 +6,7 @@ from engine.animated_sprite import AnimatedSprite
 
 ANIMATION_TUPLES = {
     "kingkrool": [("idle", 4), ("walk", 8)],
-    "pinkie": [("idle", 2)],
+    "pinkie": [("idle", 2), ("walk", 9)],
 }
 ANIMATION_DEFAULT = [("idle", 1)]
 
