@@ -15,9 +15,9 @@ class MegaKingsGame(MyGame):
         super().__init__(SCREEN_TITLE)
 
     def setup(self):
-        super().setup(NPC("kingkrool", hp=6000))
+        super().setup(NPC("dryBowser", hp=6000))
         for i in range(NPC_COUNT):
-            npc = NPC("dragonBlack" if i % NPC_COUNT != 0 else "dragonRed", hp=2)
+            npc = NPC("kingkrool", hp=2)
             npc.center_x = random.randint(0, SCREEN_WIDTH)
             npc.center_y = random.randint(0, SCREEN_HEIGHT)
             self.npcs.append(npc)

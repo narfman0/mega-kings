@@ -9,6 +9,7 @@ ANIMATION_TUPLES = {
     "kingkrool": [("idle", 4), ("walk", 8), ("attack", 4)],
     "pinkie": [("idle", 2), ("walk", 9)],
     "unicornBlue": [("idle", 2), ("walk", 9)],
+    "dryBowser": [("idle", 2), ("walk", 3), ("attack", 4)],
 }
 ANIMATION_DEFAULT = [("idle", 1)]
 ATTACK_DISTANCE = 100

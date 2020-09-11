@@ -10,6 +10,12 @@ A war torn dragon-scape exhibits the primal rage of testosterone. The minion
 dragons can be only conquered by the most chief of dragons: king k rool. Watch
 as he masters his draconic origins (from donkey kong) to be master of dragons.
 
+### TODO
+
+* AI NPCs attack every frame and the animation stays the same
+* Change to faint animation and fade npcs
+* Add shields
+
 ## Unicorns and rainbows
 
 Nirvana and world peace have surely been achieved by each fluffy unicorn, whose
