@@ -50,7 +50,7 @@ class UnicornsAndRainbowsGame(MyGame):
             min_distance = -1
             closest_x = SCREEN_WIDTH
             closest_y = SCREEN_WIDTH
-            for flower in self.terrain:
+            for flower in self.plants:
                 current_distance = distance(flower, npc)
                 if min_distance == -1 or current_distance < min_distance:
                     min_distance = current_distance

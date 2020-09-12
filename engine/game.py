@@ -101,4 +101,5 @@ class MyGame(arcade.Window):
             self.player.change_x = 0
         self.player.update()
         self.npcs.update()
+        self.terrain.update()
         self.physics_engine.update()
