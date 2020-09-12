@@ -20,6 +20,22 @@ PLAYER_START_X = SCREEN_WIDTH / 2
 PLAYER_START_Y = SCREEN_HEIGHT / 2
 
 
+# Physics
+# Damping - Amount of speed lost per second
+DEFAULT_DAMPING = 1.0
+PLAYER_DAMPING = 0.4
+
+# Friction between objects
+PLAYER_FRICTION = 1.0
+WALL_FRICTION = 0.7
+DYNAMIC_ITEM_FRICTION = 0.6
+
+# Mass (defaults to 1)
+PLAYER_MASS = 2.0
+PLAYER_MAX_SPEED = 450
+PLAYER_MOVE_FORCE_ON_GROUND = 4000
+
+
 class MyGame(arcade.Window):
     """ Main application class. """
 
@@ -43,7 +59,18 @@ class MyGame(arcade.Window):
         self.moving_right = False
         self.moving_up = False
         self.moving_down = False
-        self.physics_engine = arcade.PhysicsEngineSimple(self.player, self.terrain)
+        self.physics_engine = arcade.PymunkPhysicsEngine()
+        self.physics_engine.add_sprite(self.player,
+                                       friction=PLAYER_FRICTION,
+                                       mass=PLAYER_MASS,
+                                       moment=arcade.PymunkPhysicsEngine.MOMENT_INF,
+                                       collision_type="player",
+                                       max_horizontal_velocity=PLAYER_MAX_SPEED,
+                                       max_vertical_velocity=PLAYER_MAX_SPEED)
+        self.physics_engine.add_sprite_list(self.terrain,
+                                    friction=WALL_FRICTION,
+                                    collision_type="terrain",
+                                    body_type=arcade.PymunkPhysicsEngine.STATIC)
 
     def on_draw(self):
         """ Render the screen. """
@@ -99,6 +126,28 @@ class MyGame(arcade.Window):
             self.player.change_x = MOVEMENT_SPEED
         else:
             self.player.change_x = 0
+
+        if self.moving_left:
+            force = (-PLAYER_MOVE_FORCE_ON_GROUND, 0)
+            self.physics_engine.apply_force(self.player, force)
+            self.physics_engine.set_friction(self.player, 0)
+        elif self.moving_right:
+            force = (PLAYER_MOVE_FORCE_ON_GROUND, 0)
+            self.physics_engine.apply_force(self.player, force)
+            self.physics_engine.set_friction(self.player, 0)
+        elif self.moving_up:
+            force = (0, PLAYER_MOVE_FORCE_ON_GROUND)
+            self.physics_engine.apply_force(self.player, force)
+            self.physics_engine.set_friction(self.player, 0)
+        elif self.moving_down:
+            force = (0, -PLAYER_MOVE_FORCE_ON_GROUND)
+            self.physics_engine.apply_force(self.player, force)
+            self.physics_engine.set_friction(self.player, 0)
+        else:
+            # Player's feet are not moving. Therefore up the friction so we stop.
+            self.physics_engine.set_friction(self.player, 1.0)
+
+
         self.player.update()
         self.npcs.update()
-        self.physics_engine.update()
+        self.physics_engine.step()

@@ -21,12 +21,20 @@ class UnicornsAndRainbowsGame(MyGame):
             unicorn_sprite.center_x = random.randint(0, SCREEN_WIDTH)
             unicorn_sprite.center_y = random.randint(0, SCREEN_HEIGHT)
             self.npcs.append(unicorn_sprite)
+        self.physics_engine.add_sprite_list(self.npcs,
+                                            friction=DYNAMIC_ITEM_FRICTION,
+                                            moment=arcade.PymunkPhysicsEngine.MOMENT_INF,
+                                            collision_type="npc")
         self.plants = arcade.SpriteList()
         for i in range(PLANT_COUNT):
             sprite = arcade.Sprite("images/terrain/redFlower.png", 1)
             sprite.center_x = random.randint(0, SCREEN_WIDTH)
             sprite.center_y = random.randint(0, SCREEN_HEIGHT)
             self.plants.append(sprite)
+        self.physics_engine.add_sprite_list(self.plants,
+                            friction=WALL_FRICTION,
+                            collision_type="terrain",
+                            body_type=arcade.PymunkPhysicsEngine.STATIC)
 
     def on_draw(self):
         """ Render the screen. """
