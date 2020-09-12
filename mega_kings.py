@@ -30,12 +30,11 @@ class MegaKingsGame(MyGame):
             self.do_attack = False
             self.player.attack(self.npcs)
 
-        fainted = []
         for npc in self.npcs:
             if npc.fainted():
                 npc.change_x = 0
                 npc.change_x = 0
-                fainted.append(npc)
+                npc.remove_from_sprite_lists()
                 continue
             if self.player.fainted():
                 npc.change_x += 1 if npc.center_x < self.player.center_x else -1
@@ -45,8 +44,6 @@ class MegaKingsGame(MyGame):
                 npc.change_y = 1 if npc.center_y < self.player.center_y else -1
             if distance(npc, self.player) < ATTACK_DISTANCE:
                 npc.attack([self.player])
-        for fainted_npc in fainted:
-            self.npcs.remove(fainted_npc)
 
     def on_key_press(self, key, modifiers):
         super().on_key_press(key, modifiers)
