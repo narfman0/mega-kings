@@ -12,7 +12,6 @@ as he masters his draconic origins (from donkey kong) to be master of dragons.
 
 ### TODO
 
-* AI NPCs attack every frame and the animation stays the same
 * Change to faint animation and fade npcs
 * Add shields
 

@@ -21,12 +21,13 @@ class MegaKingsGame(MyGame):
             npc.center_x = random.randint(0, SCREEN_WIDTH)
             npc.center_y = random.randint(0, SCREEN_HEIGHT)
             self.npcs.append(npc)
+        self.do_attack = False
 
     def on_update(self, delta_time):
         """ Movement and game logic """
         super().on_update(delta_time)
-        if self.player.attacking:
-            self.player.attacking = False
+        if self.do_attack:
+            self.do_attack = False
             self.player.attack(self.npcs)
 
         fainted = []
@@ -49,9 +50,8 @@ class MegaKingsGame(MyGame):
 
     def on_key_press(self, key, modifiers):
         super().on_key_press(key, modifiers)
-        if not self.player.fainted() and self.player.current_animation_name != "attack":
-            if key == arcade.key.A:
-                self.player.attacking = True
+        if key == arcade.key.A:
+            self.do_attack = True
 
 
 def main():

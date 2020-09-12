@@ -24,10 +24,11 @@ class NPC(AnimatedSprite):
         self.current_hp = hp
         self.defense_stat = defense_stat
         self.attack_stat = attack_stat
-        self.attacking = False
         self.non_looped_frames_remaining = 0
 
     def attack(self, npcs):
+        if self.fainted() or self.current_animation_name == "attack":
+            return
         self.set_animation("attack", False)
         self.non_looped_frames_remaining = self.get_current_animation_total_frames()
         for npc in npcs:
