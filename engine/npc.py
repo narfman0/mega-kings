@@ -6,7 +6,7 @@ from engine.animated_sprite import AnimatedSprite
 from engine.math import distance
 
 ANIMATION_TUPLES = {
-    "bossBrolder": [("idle", 3), ("walk", 8), ("attack", 3)],
+    "bossBrolder": [("idle", 3), ("walk", 8), ("attack", 3), ("hurt", 2)],
     "dryBowser": [("idle", 2), ("walk", 3), ("attack", 4)],
     "kingkrool": [("idle", 4), ("walk", 8), ("attack", 4)],
     "unicornPink": [("idle", 2), ("walk", 9)],
