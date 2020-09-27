@@ -37,6 +37,8 @@ class NPC(AnimatedSprite):
                 npc.current_hp = max(
                     0, npc.current_hp - (self.attack_stat - npc.defense_stat)
                 )
+                if npc.has_animation("hurt") and npc.current_animation_name == "idle":
+                    npc.set_animation("hurt") # TODO: loop=False
 
     def fainted(self):
         return self.current_hp <= 0
