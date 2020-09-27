@@ -15,12 +15,16 @@ class MegaKingsGame(MyGame):
         super().__init__(SCREEN_TITLE)
 
     def setup(self):
-        super().setup(NPC("dryBowser", hp=6000))
+        super().setup(NPC("bossBrolder", hp=6000))
         for i in range(NPC_COUNT):
             npc = NPC("kingkrool", hp=2)
             npc.center_x = random.randint(0, SCREEN_WIDTH)
             npc.center_y = random.randint(0, SCREEN_HEIGHT)
             self.npcs.append(npc)
+        npc = NPC("dryBowser", hp=30)
+        npc.center_x = SCREEN_WIDTH
+        npc.center_y = SCREEN_HEIGHT
+        self.npcs.append(npc)
         self.do_attack = False
 
     def on_update(self, delta_time):
