@@ -15,17 +15,22 @@ class MegaKingsGame(MyGame):
         super().__init__(SCREEN_TITLE)
 
     def setup(self):
-        super().setup(NPC("bossBrolder", hp=6000))
+        super().setup(NPC("boomBoom", hp=6000))
+        self.do_attack = False
+        self.rounds = 2
+        self.spawn_npcs("dryBowser", 10)
+
+    def spawn_npcs(self, boss_name, boss_hp):
         for i in range(NPC_COUNT):
             npc = NPC("kingkrool", hp=2)
             npc.center_x = random.randint(0, SCREEN_WIDTH)
             npc.center_y = random.randint(0, SCREEN_HEIGHT)
             self.npcs.append(npc)
-        npc = NPC("dryBowser", hp=30)
+        npc = NPC(boss_name, hp=boss_hp)
         npc.center_x = SCREEN_WIDTH
         npc.center_y = SCREEN_HEIGHT
         self.npcs.append(npc)
-        self.do_attack = False
+        self.rounds -= 1
 
     def on_update(self, delta_time):
         """ Movement and game logic """
@@ -39,6 +44,8 @@ class MegaKingsGame(MyGame):
                 npc.change_x = 0
                 npc.change_x = 0
                 npc.remove_from_sprite_lists()
+                if not self.npcs and self.rounds == 1:
+                    self.spawn_npcs("bossBrolder", 30)
                 continue
             if self.player.fainted():
                 npc.change_x += 1 if npc.center_x < self.player.center_x else -1
