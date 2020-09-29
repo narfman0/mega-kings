@@ -15,9 +15,9 @@ class MegaKingsGame(MyGame):
         super().__init__(SCREEN_TITLE)
 
     def setup(self):
-        super().setup(NPC("boomBoom", hp=6000))
+        super().setup(NPC("mimikyu", hp=6000))
         self.do_attack = False
-        self.rounds = 2
+        self.rounds = 3
         self.spawn_npcs("dryBowser", 10)
 
     def spawn_npcs(self, boss_name, boss_hp):
@@ -44,8 +44,10 @@ class MegaKingsGame(MyGame):
                 npc.change_x = 0
                 npc.change_x = 0
                 npc.remove_from_sprite_lists()
-                if not self.npcs and self.rounds == 1:
+                if not self.npcs and self.rounds == 2:
                     self.spawn_npcs("bossBrolder", 30)
+                if not self.npcs and self.rounds == 1:
+                    self.spawn_npcs("boomBoom", 40)
                 continue
             if self.player.fainted():
                 npc.change_x += 1 if npc.center_x < self.player.center_x else -1
